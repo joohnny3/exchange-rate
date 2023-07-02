@@ -43,6 +43,9 @@
       background-color: #ffdd07d6;
       margin-right: 3rem;
     }
+    .time{
+      text-shadow: 1px 1px 1px black;
+    }
   </style>
 </head>
 
@@ -117,7 +120,7 @@
       ?>
     </div>
   </div>
-  <div class="position-fixed bottom-0 end-0 text-light">
+  <div class="position-fixed bottom-0 end-0 text-light time">
     <?= $date->format('n月j日 ' . $amPm . 'H:i [T]．免責聲明'); ?>
   </div>
   <script>
