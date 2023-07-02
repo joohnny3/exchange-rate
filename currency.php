@@ -7,25 +7,38 @@
   <title>Currency</title>
   <link rel="icon" href="./image/bank.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <script src="node_modules/confetti-js/dist/index.min.js"></script>
+  <script src="./confetti-js-master/dist/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <style>
     * {
-      font-family: "標楷體",arial,sans-serif;
+      font-family: "標楷體", arial, sans-serif;
     }
-    body{
+
+    body {
       background-color: whitesmoke;
     }
-    .container-fluid>svg{
+
+    .container-fluid>svg {
       margin-right: 3rem;
     }
-    nav{
+
+    nav {
       opacity: 0.95;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
   </style>
 </head>
 
 <body>
+  <canvas id="my-canvas"></canvas>
   <nav class="navbar navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">即時匯率</a>
@@ -47,46 +60,53 @@
       $amPm = ($date->format('a') == 'am') ? '上午' : '下午';
 
       foreach ($currency as $key => $value) {
-        $value->Exrate = number_format($twM/$value->Exrate,2);
+        $value->Exrate = number_format($twM / $value->Exrate, 2);
       }
       $arrCurrency = [
-        ['美國', $currency->USDUSD->Exrate, 'USD', '美元'],
-        ['中國', $currency->USDCNH->Exrate, 'CNH', '人民幣'],
-        ['日本', $currency->USDJPY->Exrate, 'JPY', '日圓'],
-        ['韓國', $currency->USDKRW->Exrate, 'KRW', '韓圓'],
-        ['香港', $currency->USDHKD->Exrate, 'HKD', '港幣'],
-        ['義大利', $currency->USDEUR->Exrate, 'EUR', '歐元'],
-        ['澳洲', $currency->USDAUD->Exrate, 'AUD', '澳元'],
-        ['泰國', $currency->USDTHB->Exrate, 'THB', '泰銖'],
-        ['新加坡', $currency->USDSGD->Exrate, 'SGD', '新加坡幣'],
-        ['馬來西亞', $currency->USDMYR->Exrate, 'MYR', '令吉'],
-        ['越南', $currency->USDVND->Exrate, 'VND', '越南盾'],
-        ['印尼', $currency->USDIDR->Exrate, 'IDR', '印尼盾 ']
-    ];
+        ['美國', $currency->USDUSD->Exrate, 'USD', '美元','#dc3545ab'],
+      ['中國', $currency->USDCNH->Exrate, 'CNH', '人民幣','#0d6efda3'],
+        ['日本', $currency->USDJPY->Exrate, 'JPY', '日圓','#0f5132a6'],
+        ['韓國', $currency->USDKRW->Exrate, 'KRW', '韓圓','#ffc107ad'],
+        ['香港', $currency->USDHKD->Exrate, 'HKD', '港幣','#dc3545ab'],
+      ['義大利', $currency->USDEUR->Exrate, 'EUR', '歐元','#0d6efda3'],
+        ['澳洲', $currency->USDAUD->Exrate, 'AUD', '澳元','#0f5132a6'],
+        ['泰國', $currency->USDTHB->Exrate, 'THB', '泰銖','#ffc107ad'],
+    ['新加坡', $currency->USDSGD->Exrate, 'SGD', '新加坡幣','#dc3545ab'],
+      ['馬來西亞', $currency->USDMYR->Exrate, 'MYR', '令吉','#0d6efda3'],
+        ['越南', $currency->USDVND->Exrate, 'VND', '越南盾','#0f5132a6'],
+       ['印尼', $currency->USDIDR->Exrate, 'IDR', '印尼盾 ','#ffc107ad']
+      ];
 
-    
-    // print $currency->USDUSD->Exrate;
-    print "<pre>";
-    // print_r($arrCurrency);
-    print "</pre>";
-    for ($i = 0; $i < 12; $i++) {
-      print
-      "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>
+
+      // print $currency->USDUSD->Exrate;
+      print "<pre>";
+      // print_r($arrCurrency);
+      print "</pre>";
+      for ($i = 0; $i < 12; $i++) {
+        print
+          "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>
       <div class='card' style='width: 18rem;'>
-      <img src='...' class='card-img-top' alt='{$arrCurrency[$i][0]}'>
-      <div class='card-body'>
+      <img src='goat.jpg' class='card-img-top' alt='{$arrCurrency[$i][0]}'>
+      <div class='card-body' style='background-color:{$arrCurrency[$i][4]};'>
       <p class='card-text text-black text-opacity-75'>1 {$arrCurrency[$i][3]} 等於</p>
       <h5 class='card-title'>{$arrCurrency[$i][1]}新臺幣</h5>
       </div>
       </div>
       </div>";
-    }
-    ?>
+      }
+      ?>
     </div>
   </div>
   <div class="position-fixed bottom-0 end-0 text-black-50">
-    <?=$date->format('n月j日 '.$amPm.'H:i [T]．免責聲明');?>
+    <?= $date->format('n月j日 ' . $amPm . 'H:i [T]．免責聲明'); ?>
   </div>
+  <script>
+    var confettiSettings = {
+      target: 'my-canvas'
+    };
+    var confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
+  </script>
 </body>
 
 </html>
