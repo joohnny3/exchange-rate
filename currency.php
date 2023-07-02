@@ -117,7 +117,7 @@
       ?>
     </div>
   </div>
-  <div class="position-fixed bottom-0 end-0 text-black-50">
+  <div class="position-fixed bottom-0 end-0 text-light-50">
     <?= $date->format('n月j日 ' . $amPm . 'H:i [T]．免責聲明'); ?>
   </div>
   <script>
