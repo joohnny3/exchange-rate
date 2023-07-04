@@ -1,5 +1,9 @@
 'use strict';
-
+var confettiSettings = {
+  target: 'my-canvas'
+};
+var confetti = new ConfettiGenerator(confettiSettings);
+confetti.render();
 function ConfettiGenerator(params) {
   //////////////
   // Defaults
