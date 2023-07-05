@@ -97,7 +97,9 @@
         ['印尼', $currency->USDIDR->newExrate, 'IDR', '印尼盾 ', '#37b03536', $currency->USDIDR->twExrate]
       ];
 
-      for ($i = 0; $i < 12; $i++) {
+      $arrNum = count($arrCurrency);
+
+      for ($i = 0; $i < $arrNum; $i++) {
         print
           "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>
     <div class='card' style='width: 18rem;'>

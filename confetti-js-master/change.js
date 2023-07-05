@@ -1,3 +1,4 @@
+const changeAtag = document.querySelector('.navbar-brand');
 const changeBtn = document.querySelector('.navbar-brand');
 const cardTextElements = document.querySelectorAll('.card-text');
 const cardTitleElements = document.querySelectorAll('.card-title');
@@ -27,4 +28,15 @@ changeBtn.addEventListener('click', () => {
   });
 
   isChanged = !isChanged;
+});
+
+
+changeAtag.addEventListener('mouseover', () => {
+  changeAtag.innerHTML = '匯率轉換';
+
+});
+
+
+changeAtag.addEventListener('mouseout', () => {
+  changeAtag.innerHTML = '即時匯率';
 });
