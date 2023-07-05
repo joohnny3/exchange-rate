@@ -13,11 +13,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <style>
     * {
-      font-family: 'Noto Sans TC','Roboto', sans-serif;
+      font-family: 'Noto Sans TC', 'Roboto', sans-serif;
     }
 
     body {
-      background-color: #212529;
+      /* background-color: #212529; */
     }
 
     nav {
@@ -41,7 +41,8 @@
       background-color: #ffdd07d6;
       margin-right: 3rem;
     }
-    .time{
+
+    .time {
       text-shadow: 1px 1px 1px black;
     }
   </style>
@@ -68,49 +69,53 @@
         </svg></a>
   </nav>
   <div class="container text-center">
-    <div class="row">
-      <?php
-      date_default_timezone_set('Asia/Taipei');
-      $content = file_get_contents('https://tw.rter.info/capi.php');
-      $currency = json_decode($content);
-      $twM = $currency->USDTWD->Exrate;
-      $date = new DateTimeImmutable();
-      $amPm = ($date->format('a') == 'am') ? '上午' : '下午';
+  <div class="row">
+    <?php
+    date_default_timezone_set('Asia/Taipei');
+    $content = file_get_contents('https://tw.rter.info/capi.php');
+    $currency = json_decode($content);
+    $twM = $currency->USDTWD->Exrate;
+    $date = new DateTimeImmutable();
+    $amPm = ($date->format('a') == 'am') ? '上午' : '下午';
 
-      foreach ($currency as $key => $value) {
-        $value->Exrate = number_format($twM / $value->Exrate, 3);
-      }
-      $arrCurrency = [
-        ['美國', $currency->USDUSD->Exrate, 'USD', '美元', '#007ab04f'],
-        ['中國', $currency->USDCNH->Exrate, 'CNH', '人民幣', '#37b03536'],
-        ['日本', $currency->USDJPY->Exrate, 'JPY', '日圓', '#007ab04f'],
-        ['韓國', $currency->USDKRW->Exrate, 'KRW', '韓圓', '#37b03536'],
-        ['香港', $currency->USDHKD->Exrate, 'HKD', '港幣', '#007ab04f'],
-        ['義大利', $currency->USDEUR->Exrate, 'EUR', '歐元', '#37b03536'],
-        ['澳洲', $currency->USDAUD->Exrate, 'AUD', '澳元', '#007ab04f'],
-        ['泰國', $currency->USDTHB->Exrate, 'THB', '泰銖', '#37b03536'],
-        ['新加坡', $currency->USDSGD->Exrate, 'SGD', '新加坡幣', '#007ab04f'],
-        ['馬來西亞', $currency->USDMYR->Exrate, 'MYR', '令吉', '#37b03536'],
-        ['越南', $currency->USDVND->Exrate, 'VND', '越南盾', '#007ab04f'],
-        ['印尼', $currency->USDIDR->Exrate, 'IDR', '印尼盾 ', '#37b03536']
-      ];
+    foreach ($currency as $key => $value) {
+      $value->newExrate = number_format($twM / $value->Exrate, 3);
+      $value->twExrate = number_format($value->Exrate / $twM, 3);
+    }
+    $arrCurrency = [
+      ['美國', $currency->USDUSD->newExrate, 'USD', '美元', '#007ab04f', $currency->USDUSD->newExrate],
+      ['中國', $currency->USDCNH->newExrate, 'CNH', '人民幣', '#37b03536', $currency->USDCNH->newExrate],
+      ['日本', $currency->USDJPY->newExrate, 'JPY', '日圓', '#007ab04f', $currency->USDJPY->newExrate],
+      ['韓國', $currency->USDKRW->newExrate, 'KRW', '韓圓', '#37b03536', $currency->USDKRW->newExrate],
+      ['香港', $currency->USDHKD->newExrate, 'HKD', '港幣', '#007ab04f', $currency->USDHKD->newExrate],
+      ['義大利', $currency->USDEUR->newExrate, 'EUR', '歐元', '#37b03536', $currency->USDEUR->newExrate],
+      ['澳洲', $currency->USDAUD->newExrate, 'AUD', '澳元', '#007ab04f', $currency->USDAUD->newExrate],
+      ['泰國', $currency->USDTHB->newExrate, 'THB', '泰銖', '#37b03536', $currency->USDTHB->newExrate],
+      ['新加坡', $currency->USDSGD->newExrate, 'SGD', '新加坡幣', '#007ab04f', $currency->USDSGD->newExrate],
+      ['馬來西亞', $currency->USDMYR->newExrate, 'MYR', '令吉', '#37b03536', $currency->USDMYR->newExrate],
+      ['越南', $currency->USDVND->newExrate, 'VND', '越南盾', '#007ab04f', $currency->USDVND->newExrate],
+      ['印尼', $currency->USDIDR->newExrate, 'IDR', '印尼盾 ', '#37b03536', $currency->USDIDR->newExrate]
+    ];
 
 
+    print "<pre>";
+    print_r($arrCurrency);
+    print "</pre>";
 
-      for ($i = 0; $i < 12; $i++) {
-        print
-          "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>
-      <div class='card' style='width: 18rem;'>
-      <img src='./image/{$arrCurrency[$i][2]}.jpg' class='card-img-top' alt='{$arrCurrency[$i][0]}'>
-      <div class='card-body' style='background-color:{$arrCurrency[$i][4]};'>
-      <p class='card-text text-black fs-6 text-opacity-75'>1 {$arrCurrency[$i][3]} 等於</p>
-      <h5 class='card-title fs-4'>{$arrCurrency[$i][1]}新臺幣</h5>
-      </div>
-      </div>
-      </div>";
-      }
-      ?>
+    for ($i = 0; $i < 12; $i++) {
+      print
+        "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>
+    <div class='card' style='width: 18rem;'>
+    <img src='./image/{$arrCurrency[$i][2]}.jpg' class='card-img-top' alt='{$arrCurrency[$i][0]}'>
+    <div class='card-body' style='background-color:{$arrCurrency[$i][4]};'>
+    <p class='card-text text-black fs-6 text-opacity-75'data-taiwna='1 新臺幣 等於'>1 {$arrCurrency[$i][3]} 等於</p>
+    <h5 class='card-title fs-4' data-change='{$arrCurrency[$i][5]}{$arrCurrency[$i][3]}'>{$arrCurrency[$i][1]}新臺幣</h5>
     </div>
+    </div>
+    </div>";
+    }  
+    ?>
+  </div>
   </div>
   <div class="position-fixed bottom-0 end-0 text-light time">
     <?= $date->format('n月j日 ' . $amPm . 'H:i [T]．免責聲明'); ?>
