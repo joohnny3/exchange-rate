@@ -9,15 +9,15 @@ function ConfettiGenerator(params) {
   // Defaults
   var appstate = {
     target: 'confetti-holder', // Id of the canvas
-    max: 30, // Max itens to render
-    size: 1.1, // prop size
+    max: 65, // Max itens to render
+    size: 1.8, // prop size
     animate: true, // Should animate?
     respawn: true, // Should confettis be respawned when getting out of screen?
-    props: [ 'square',], // Types of confetti
+    props: [ 'circle',], // Types of confetti
     colors: [[0,0,0],[255,255,255]], // Colors to render confetti
     clock: 20, // Speed of confetti fall
     interval: null, // Draw interval holder
-    rotate: true, // Whenever to rotate a prop
+    rotate: false, // Whenever to rotate a prop
     start_from_edge: false, // Should confettis spawn at the top/bottom of the screen?
     width: window.innerWidth, // canvas width (as int, in px)
     height: window.innerHeight // canvas height (as int, in px)
