@@ -14,7 +14,7 @@ function ConfettiGenerator(params) {
     animate: true, // Should animate?
     respawn: true, // Should confettis be respawned when getting out of screen?
     props: [ 'circle',], // Types of confetti
-    colors: [[0,0,0],[255,255,255]], // Colors to render confetti
+    colors: [[255,255,255]], // Colors to render confetti
     clock: 20, // Speed of confetti fall
     interval: null, // Draw interval holder
     rotate: false, // Whenever to rotate a prop

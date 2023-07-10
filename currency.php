@@ -17,7 +17,7 @@
     }
 
     body {
-      background-color: #212529;
+      /* background-color: #212529; */
     }
 
     nav {
@@ -45,6 +45,21 @@
     .time {
       text-shadow: 1px 1px 1px black;
     }
+
+    .card,
+    .card-img-top {
+      border-radius: 2px;
+    }
+
+    .card {
+      box-shadow: 0px 0px 14px #3995529e;
+      transition: all 1.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.07);
+      transition: all 0.2s;
+    }
   </style>
 </head>
 
@@ -68,16 +83,21 @@
     <div class="row">
       <?php
       date_default_timezone_set('Asia/Taipei');
+      $dsn = "mysql:host=127.0.0.1;charset=utf8;dbname=currency";
+      $pdo = new PDO($dsn, 'root', '');
       $content = file_get_contents('https://tw.rter.info/capi.php');
       $currency = json_decode($content);
       $twM = $currency->USDTWD->Exrate;
       $date = new DateTimeImmutable();
       $amPm = ($date->format('a') == 'am') ? '上午' : '下午';
 
+
       foreach ($currency as $key => $value) {
         $value->newExrate = number_format($twM / $value->Exrate, 3);
         $value->twExrate = number_format($value->Exrate / $twM, 3);
       }
+
+
       $arrCurrency = [
         ['美國', $currency->USDUSD->newExrate, 'USD', '美元', '#ffe40742', $currency->USDUSD->twExrate],
         ['中國', $currency->USDCNH->newExrate, 'CNH', '人民幣', '#f8f9fa', $currency->USDCNH->twExrate],
@@ -92,13 +112,27 @@
         ['越南', $currency->USDVND->newExrate, 'VND', '越南盾', '#ffe40742', $currency->USDVND->twExrate],
         ['印尼', $currency->USDIDR->newExrate, 'IDR', '印尼盾 ', '#f8f9fa', $currency->USDIDR->twExrate]
       ];
-
+      
       $arrNum = count($arrCurrency);
+      $sql = "SELECT * FROM `currencys` 
+      WHERE `nation` ='{$arrCurrency[0][3]}' ";
+      $ooo = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+      print "<pre>";
+      // print_r($ooo);
+      print "</pre>";
+      foreach ($ooo as $key => $value) {
+        print "<pre>";
+        // print_r($key);
+        print "</pre>";
+        print "<pre>";
+      print_r($value);
+      print "</pre>";
+      }
 
       for ($i = 0; $i < $arrNum; $i++) {
         print
           "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>
-    <div class='card' style='width: 18rem;'>
+    <div class='card border-0' style='width: 18rem;'>
     <img src='./image/{$arrCurrency[$i][2]}.jpg' class='card-img-top' alt='{$arrCurrency[$i][0]}'>
     <div class='card-body' style='background-color:{$arrCurrency[$i][4]};'>
     <p class='card-text text-black fs-6 text-opacity-75'data-taiwna='1 新臺幣 等於'>1 {$arrCurrency[$i][3]} 等於</p>
@@ -113,9 +147,13 @@
   <div class="position-fixed bottom-0 end-0 text-light time">
     <?= $date->format('n月j日 ' . $amPm . 'H:i [T]．免責聲明'); ?>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="./confetti-js-master/change.js"></script>
   <script src="./confetti-js-master/dist/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script>
+
+  </script>
 </body>
 
 </html>
