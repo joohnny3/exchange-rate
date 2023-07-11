@@ -60,14 +60,30 @@
       transform: scale(1.07);
       transition: all 0.2s;
     }
+
+    .container {
+      width: 100%;
+      height: 500px;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    #myChart {
+      background-color: #f0f0f0;
+      /* 這裡將背景設置為淺灰色 */
+      width: 100%;
+      height: 500px;
+    }
   </style>
 </head>
 
 <body>
-  <canvas id="my-canvas"></canvas>
-  <nav class="navbar navbar-dark bg-dark sticky-top">
+  <div class="container">
+    <canvas id="myChart"></canvas>
+  </div>
+  <!-- <nav class="navbar navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">即時匯率</a>
+      <a class="navbar-brand" href="#">即時匯率</a> -->
       <!-- <div class="titleIcon">
         <img src="./image/exchange-rate.png" alt="">
       </div> -->
@@ -112,7 +128,7 @@
         ['越南', $currency->USDVND->newExrate, 'VND', '越南盾', '#ffe40742', $currency->USDVND->twExrate],
         ['印尼', $currency->USDIDR->newExrate, 'IDR', '印尼盾 ', '#f8f9fa', $currency->USDIDR->twExrate]
       ];
-      
+
       $arrNum = count($arrCurrency);
       $sql = "SELECT * FROM `currencys` 
       WHERE `nation` ='{$arrCurrency[0][3]}' ";
@@ -125,8 +141,8 @@
         // print_r($key);
         print "</pre>";
         print "<pre>";
-      print_r($value);
-      print "</pre>";
+        print_r($value);
+        print "</pre>";
       }
 
       for ($i = 0; $i < $arrNum; $i++) {
@@ -147,12 +163,42 @@
   <div class="position-fixed bottom-0 end-0 text-light time">
     <?= $date->format('n月j日 ' . $amPm . 'H:i [T]．免責聲明'); ?>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="./confetti-js-master/change.js"></script>
   <script src="./confetti-js-master/dist/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    const ctx = document.getElementById("myChart").getContext("2d");
 
+    // 假設這些數據是從API或者數據庫獲取的
+    const labels = ["項目1", "項目2", "項目3", "項目4", "項目5", "d", "d"];
+    const data = [120, 190, 300, 50, 20];
+
+    const chart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "週數據",
+          data: data,
+          backgroundColor: "rgba(220, 220, 220, 0.5)",
+          borderWidth: 3,
+          fill: false,
+          tension: 0.1,
+          borderColor: "rgb(75, 192, 192)",
+        }, ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 400,
+          },
+        },
+      },
+    });
   </script>
 </body>
 
