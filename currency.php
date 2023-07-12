@@ -11,13 +11,14 @@
   <link rel="icon" href="./image/exchange-rate.png" type="image/png">
   <link rel="stylesheet" href="spinkit.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * {
       font-family: 'Noto Sans TC', 'Roboto', sans-serif;
     }
 
     body {
-      /* background-color: #212529; */
+      background-color: #212529;
     }
 
     nav {
@@ -60,34 +61,25 @@
       transform: scale(1.07);
       transition: all 0.2s;
     }
-
-    .container {
-      width: 100%;
-      height: 500px;
-      width: 80%;
-      margin: 0 auto;
-    }
-
-    #myChart {
-      background-color: #f0f0f0;
-      /* 這裡將背景設置為淺灰色 */
-      width: 100%;
-      height: 500px;
-    }
+    
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <canvas id="myChart"></canvas>
-  </div>
-  <!-- <nav class="navbar navbar-dark bg-dark sticky-top">
+
+  <!-- <?php for ($i=0; $i < 11; $i++) { 
+   print  "<div class='container'>
+    <canvas id='myChart$i></canvas>
+  </div>";
+  }?> -->
+  
+  <nav class="navbar navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">即時匯率</a> -->
+      <a class="navbar-brand" href="#">即時匯率</a>
       <!-- <div class="titleIcon">
         <img src="./image/exchange-rate.png" alt="">
-      </div> -->
-      <!-- <div class="sk-swing">
+      </div>
+  <div class="sk-swing">
         <div class="sk-swing-dot"></div>
         <div class="sk-swing-dot"></div>
       </div> -->
@@ -130,33 +122,81 @@
       ];
 
       $arrNum = count($arrCurrency);
-      $sql = "SELECT * FROM `currencys` 
-      WHERE `nation` ='{$arrCurrency[0][3]}' ";
-      $ooo = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-      print "<pre>";
-      // print_r($ooo);
-      print "</pre>";
-      foreach ($ooo as $key => $value) {
-        print "<pre>";
-        // print_r($key);
-        print "</pre>";
-        print "<pre>";
-        print_r($value);
-        print "</pre>";
-      }
+
 
       for ($i = 0; $i < $arrNum; $i++) {
-        print
-          "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>
-    <div class='card border-0' style='width: 18rem;'>
-    <img src='./image/{$arrCurrency[$i][2]}.jpg' class='card-img-top' alt='{$arrCurrency[$i][0]}'>
-    <div class='card-body' style='background-color:{$arrCurrency[$i][4]};'>
-    <p class='card-text text-black fs-6 text-opacity-75'data-taiwna='1 新臺幣 等於'>1 {$arrCurrency[$i][3]} 等於</p>
-    <h5 class='card-title fs-4' data-change='{$arrCurrency[$i][5]}{$arrCurrency[$i][3]}'>{$arrCurrency[$i][1]}新臺幣</h5>
-    </div>
-    </div>
-    </div>";
+        $sqlChart = "SELECT MAX(`nation_change_tw`),MIN(`nation_change_tw`) FROM `currencys` WHERE `nation` = '{$arrCurrency[$i][3]}'";
+        $sql = "SELECT * FROM `currencys` 
+      WHERE `nation` ='{$arrCurrency[$i][3]}' ORDER BY `date` DESC";
+        $chartV = $pdo->query($sqlChart)->fetch(PDO::FETCH_ASSOC);
+        $chartData = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+        $chartMax = number_format($chartV['MAX(`nation_change_tw`)'] * 10.1 / 10, 3);
+        $chartMin = number_format($chartV['MIN(`nation_change_tw`)'] * 9.9 / 10, 3);
+
+        foreach ($chartData as $key => $value) {
+      ?>
+          <script>
+          const ctx = document.getElementById("myChart<?= $i; ?>").getContext("2d");
+          const labels = ["<?= substr($chartData[6]['date'], 0, 10); ?>",
+          "<?= substr($chartData[5]['date'], 0, 10); ?>",
+          "<?= substr($chartData[4]['date'], 0, 10); ?>",
+          "<?= substr($chartData[3]['date'], 0, 10); ?>",
+          "<?= substr($chartData[2]['date'], 0, 10); ?>",
+          "<?= substr($chartData[1]['date'], 0, 10); ?>",
+          "<?= substr($chartData[0]['date'], 0, 10); ?>"
+          ];
+          const data = ["<?= $chartData[6]['nation_change_tw']; ?>",
+          "<?= $chartData[5]['nation_change_tw']; ?>",
+          "<?= $chartData[4]['nation_change_tw']; ?>",
+          "<?= $chartData[3]['nation_change_tw']; ?>",
+          "<?= $chartData[2]['nation_change_tw']; ?>",
+          "<?= $chartData[1]['nation_change_tw']; ?>",
+          "<?= $chartData[0]['nation_change_tw']; ?>"
+          ];
+          const chart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [{
+                label: "<?= $chartData[0]['nation']; ?>",
+                data: data,
+                backgroundColor: "rgba(220, 220, 220, 0.5)",
+                borderWidth: 3,
+                fill: false,
+                tension: 0.1,
+                borderColor: "rgb(75, 192, 192)",
+              }, ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  min: <?= $chartMin; ?>,
+                  max: <?= $chartMax; ?>,
+                },
+              },
+            },
+          });
+        </script>
+        <?php
+        }
       }
+        ?>
+      <?php
+        for ($i = 0; $i < $arrNum; $i++) {
+          print
+            "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex        justify-content-center'>
+        <div class='card border-0' style='width: 18rem;'>
+        <img src='./image/{$arrCurrency[$i][2]}.jpg' class='card-img-top' alt='{$arrCurrency[$i][0]}'>
+        <div class='card-body' style='background-color:{$arrCurrency[$i][4]};'>
+        <p class='card-text text-black fs-6 text-opacity-75'data-taiwna='1 新臺幣 等於'>1 {$arrCurrency[$i][3]} 等於</p>
+        <h5 class='card-title fs-4' data-change='{$arrCurrency[$i][5]}{$arrCurrency[$i][3]}'>{$arrCurrency[$i][1]}新臺幣</h5>
+        </div>
+        </div>
+        </div>";
+        }
       ?>
     </div>
   </div>
@@ -166,40 +206,6 @@
   <script src="./confetti-js-master/change.js"></script>
   <script src="./confetti-js-master/dist/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    const ctx = document.getElementById("myChart").getContext("2d");
-
-    // 假設這些數據是從API或者數據庫獲取的
-    const labels = ["項目1", "項目2", "項目3", "項目4", "項目5", "d", "d"];
-    const data = [120, 190, 300, 50, 20];
-
-    const chart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [{
-          label: "週數據",
-          data: data,
-          backgroundColor: "rgba(220, 220, 220, 0.5)",
-          borderWidth: 3,
-          fill: false,
-          tension: 0.1,
-          borderColor: "rgb(75, 192, 192)",
-        }, ],
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            min: 0,
-            max: 400,
-          },
-        },
-      },
-    });
-  </script>
 </body>
 
 </html>
