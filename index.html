@@ -1,74 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"
-    ></script>
-    <style>
-      body {
-        font-family: "Roboto Condensed", sans-serif;
-      }
-    </style>
-  </head>
 
-  <body>
-    <nav class="navbar bg-body-tertiary fixed-top">
-      <div class="container-fluid align-items-center">
-        <div class="d-flex align-items-center">
-          <a class="navbar-brand" href="#">Offcanvas navbar</a>
-          <div id="weather" class="pe-3"></div>
-          <div id="currentTime" class="pe-3"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: "Roboto Condensed", sans-serif;
+    }
+
+    .container {
+      padding-top: 60px;
+    }
+
+    .navbar {
+      /* background-color: rgba(255, 255, 255, 0.5) !important; */
+      /* backdrop-filter: blur(4px); */
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar bg-body-tertiary fixed-top">
+    <div class="container-fluid align-items-center">
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand" href="#">Offcanvas navbar</a>
+        <div id="weather" class="pe-3"></div>
+        <div id="currentTime" class="pe-3"></div>
+      </div>
+      <div class="d-flex flex-grow-1 align-items-end">
+        <marquee>
+          <!-- <img src="./image/Kangaroo.svg" style="width: 50px;" /> -->
+          This text will scroll from right to left
+        </marquee>
+      </div>
+      <div class="ps-5">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="d-flex flex-grow-1 align-items-end">
-          <marquee><img src = "./image/Kangaroo.svg" style="width: 50px;" />
-             This text will scroll from right to left</marquee>
-        </div>
-        <div class="ps-5">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-        <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 d-flex ">
+            <div>
+
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
@@ -76,13 +65,8 @@
                 <a class="nav-link" href="#">Link</a>
               </li>
               <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
                   Dropdown
                 </a>
                 <ul class="dropdown-menu">
@@ -96,81 +80,338 @@
                   </li>
                 </ul>
               </li>
-            </ul>
-            <form class="d-flex mt-3" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+          </ul>
+          <form class="d-flex mt-3" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+        <div class="justify-content-center d-flex">
+          <img src="./image/Kangaroo.svg" style="height: 200px;" alt="">
+        </div>
+      </div>
+    </div>
+    </div>
+  </nav>
+  <div class="container text-center ">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
           </div>
         </div>
       </div>
-    </nav>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center">
+        <div class="card border-0" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <img src="./section2-pe.gif" alt="">
+  </div>
+  <div>
+    <div class="ac-gf-footer-legal-copyright">Copyright ©2023 Joohnny Inc. 免責聲明。
+    </div>
+  </div>
 
-    <script>
-      let time = document.querySelector("#currentTime");
-      let rain = document.querySelector("#weather");
+  <script>
+    let time = document.querySelector("#currentTime");
+    let rain = document.querySelector("#weather");
 
-      time.addEventListener("mouseover", () => {
-        let d = new Date();
+    time.addEventListener("mouseover", () => {
+      let d = new Date();
+      let opts = {
+        weekday: "long",
+      };
+      time.innerHTML = Intl.DateTimeFormat("en-TW", opts).format(d);
+    });
+
+    (function currentTime() {
+      setInterval(function () {
+        let now = new Date();
         let opts = {
-          weekday: "long",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
         };
-        time.innerHTML = Intl.DateTimeFormat("en-TW", opts).format(d);
-      });
+        time.innerHTML = Intl.DateTimeFormat("zh-TW", opts).format(now);
+      }, 1000);
+    })();
 
-      (function currentTime() {
-        setInterval(function () {
-          let now = new Date();
-          let opts = {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: false,
-          };
-          time.innerHTML = Intl.DateTimeFormat("zh-TW", opts).format(now);
-        }, 1000);
-      })();
+    (async function exchange() {
+      const res = await fetch(
+        "http://220.128.133.15/s1120210/currency_api.php",
+        {
+          method: "get",
+        }
+      );
+      const response = await res.json();
+    })();
 
-      (async function exchange() {
-        const res = await fetch(
-          "http://220.128.133.15/s1120210/currency_api.php",
-          {
-            method: "get",
-          }
-        );
-        const response = await res.json();
-        // console.log(response);
-      })();
+    (async function rate_now() {
+      const res = await fetch(
+        "http://220.128.133.15/s1120210/exchange_rate_now.php",
+        {
+          method: "get",
+        }
+      );
+      const response = await res.json();
 
-      (async function rate_now() {
-        const res = await fetch(
-          "http://220.128.133.15/s1120210/exchange_rate_now.php",
-          {
-            method: "get",
-          }
-        );
-        const response = await res.json();
-        console.log(response);
-      })();
-      (async function weather() {
-        const res = await fetch(
-          "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-649E0662-2D23-4C42-94FE-FD550FDCD25D&format=JSON&locationName=&elementName=",
-          {
-            method: "get",
-          }
-        );
-        const response = await res.json();
-        console.log(response);
-        rain.innerHTML =
-          response.records.locations[0].location[9].weatherElement[6].time[0].elementValue[0].value;
-      })();
-    </script>
-  </body>
+      console.log(response);
+    })();
+
+    /*
+     (async function rate_now() {
+      const res = await fetch(
+        "http://220.128.133.15/s1120210/exchange_rate_now.php",
+        {
+          method: "get",
+        }
+      );
+      const arrCurrency = await res.json();
+
+      let arrNum = arrCurrency.length;
+      let htmlString = "";
+
+      for (let i = 0; i < arrNum; i++) {
+        htmlString +=
+          "<div class='col-xs-12 col-md-6 col-lg-4 col-xxl-3 mt-4 d-flex justify-content-center'>" +
+          "<div class='card border-0' style='width: 18rem;'>" +
+          "<img src='./image/" + arrCurrency[i][2] + ".jpg' class='card-img-top' alt='" + arrCurrency[i][0] + "'>" +
+          "<div class='card-body' style='background-color:" + arrCurrency[i][4] + ";'>" +
+          "<p class='card-text text-black fs-6 text-opacity-75' data-taiwna='1 TWD 等於'>1 " + arrCurrency[i][3] + " 等於</p>" +
+          "<h5 class='card-title fs-4' data-change='" + arrCurrency[i][5] + arrCurrency[i][3] + "'>" + arrCurrency[i][1] + "TWD</h5>" +
+          "</div>" +
+          "</div>" +
+          "</div>";
+      }
+      // 用innerHTML将生成的HTML插入到要显示的地方，例如一个具有某个id的div
+      document.getElementById("card").innerHTML = htmlString;
+    })();
+    */
+
+    (async function weather() {
+      const res = await fetch(
+        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-649E0662-2D23-4C42-94FE-FD550FDCD25D&format=JSON&locationName=&elementName=",
+        {
+          method: "get",
+        }
+      );
+      const response = await res.json();
+      rain.innerHTML =
+        response.records.locations[0].location[9].weatherElement[6].time[0].elementValue[0].value;
+    })();
+  </script>
+</body>
+
 </html>
