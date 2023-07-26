@@ -240,7 +240,13 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body"><a href="https://forms.gle/SSF7K1kFFBapd7bs6" target="_blank" class="d-flex justify-content-center"><img src="./image/qrcode.png" width="350px" alt="意見回饋表單"></a>
+          <div class="modal-body">
+            <a
+              href="https://forms.gle/SSF7K1kFFBapd7bs6"
+              target="_blank"
+              class="d-flex justify-content-center"
+              ><img src="./image/qrcode.png" width="350px" alt="意見回饋表單"
+            /></a>
             為了確保我們收到您寶貴的回饋，請掃描QRcode或連結至表單填寫，謝謝。
           </div>
           <div class="modal-footer">
@@ -308,7 +314,10 @@
           }
         );
         const arrCurrency = await res.json();
-        console.log(arrCurrency);
+        bodyCard(arrCurrency);
+      })();
+
+      function bodyCard(arrCurrency) {
         let arrNum = arrCurrency.length;
         let htmlCard = "";
 
@@ -350,7 +359,7 @@
           });
           swapped = !swapped;
         });
-      })();
+      }
 
       // test....
       function imgCard() {
