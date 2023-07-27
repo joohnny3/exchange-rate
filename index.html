@@ -23,6 +23,9 @@
       crossorigin="anonymous"
     ></script>
     <style>
+      :root {
+        --theme-color: rgba(255, 255, 255, 0.9);
+      }
       body {
         font-family: "Roboto Condensed", sans-serif;
       }
@@ -32,7 +35,7 @@
       }
 
       .navbar {
-        background-color: rgba(255, 255, 255, 0.9) !important;
+        background-color: var(--theme-color) !important;
         /* backdrop-filter: blur(4px); */
       }
 
@@ -43,6 +46,15 @@
       .imgCard:hover {
         filter: none;
       }
+
+      .sideBar {
+        background-color:var(--theme-color);
+      }
+
+      .moonBtn{
+        background-color:var(--theme-color);
+      }
+
     </style>
   </head>
 
@@ -50,6 +62,22 @@
     <nav class="navbar bg-body-tertiary fixed-top fs-5">
       <div class="container-fluid align-items-center">
         <div class="d-flex align-items-center">
+          <div class="pe-2">
+            <button class="border-0 moonBtn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-moon"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"
+                />
+              </svg>
+            </button>
+          </div>
           <a class="navbar-brand fs-3" href="#">Exchange Rate</a>
           <div id="weather" class="pe-3"></div>
           <div id="currentTime" class="pe-3"></div>
@@ -110,25 +138,13 @@
           </button>
         </div>
         <div
-          class="offcanvas offcanvas-end"
+          class="offcanvas offcanvas-end sideBar"
           tabindex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div class="offcanvas-header">
             <h5 class="offcanvas-title fs-3" id="offcanvasNavbarLabel">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                class="bi bi-columns-gap pb-1"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M6 1v3H1V1h5zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12v3h-5v-3h5zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8v7H1V8h5zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6v7h-5V1h5zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"
-                />
-              </svg>
               Choose
             </h5>
             <button
@@ -143,55 +159,16 @@
               <div>
                 <li class="nav-item">
                   <a class="nav-link active fs-4" aria-current="page" href="#">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-circle-square pe-1"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M0 6a6 6 0 1 1 12 0A6 6 0 0 1 0 6z" />
-                      <path
-                        d="M12.93 5h1.57a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1.57a6.953 6.953 0 0 1-1-.22v1.79A1.5 1.5 0 0 0 5.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 4h-1.79c.097.324.17.658.22 1z"
-                      />
-                    </svg>
                     Last week statistic chart
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active fs-4" href="#">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-circle-square pe-1"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M0 6a6 6 0 1 1 12 0A6 6 0 0 1 0 6z" />
-                      <path
-                        d="M12.93 5h1.57a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1.57a6.953 6.953 0 0 1-1-.22v1.79A1.5 1.5 0 0 0 5.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 4h-1.79c.097.324.17.658.22 1z"
-                      />
-                    </svg>
                     Last month statistic chart
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active fs-4" href="#" id="swap">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-circle-square pe-1"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M0 6a6 6 0 1 1 12 0A6 6 0 0 1 0 6z" />
-                      <path
-                        d="M12.93 5h1.57a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1.57a6.953 6.953 0 0 1-1-.22v1.79A1.5 1.5 0 0 0 5.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 4h-1.79c.097.324.17.658.22 1z"
-                      />
-                    </svg>
                     Currency swap exchange rate
                   </a>
                 </li>
@@ -231,7 +208,7 @@
     >
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header border-0">
             <h1 class="modal-title fs-5" id="exampleModalLabel">意見回饋</h1>
             <button
               type="button"
@@ -244,17 +221,13 @@
             <a
               href="https://forms.gle/SSF7K1kFFBapd7bs6"
               target="_blank"
-              class="d-flex justify-content-center"
-              ><img src="./image/qrcode.png" width="350px" alt="意見回饋表單"
+              class="d-flex justify-content-center pb-3"
+              ><img src="./image/qrcode.png" width="250px" alt="意見回饋表單"
             /></a>
             為了確保我們收到您寶貴的回饋，請掃描QRcode或連結至表單填寫，謝謝。
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-success"
-              data-bs-dismiss="modal"
-            >
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
               OK
             </button>
           </div>
