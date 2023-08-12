@@ -288,7 +288,7 @@
     let charts = [];
 
     async function chartJsWeek() {
-      const res = await fetch("./api/chart_api.php", { method: "get" });
+      const res = await fetch("https://wda.mackliu.com/s1120210/chart_api.php", { method: "get" });
       const response = await res.json();
       const canvasElements = document.querySelectorAll("[id^='myChart']");
 
