@@ -178,9 +178,6 @@
       "#lastMonthStatisticCahrt"
     );
 
-    console.log(lastWeekStatisticCahrt);
-    console.log(lastMonthStatisticCahrt);
-
     let cardText;
     let isMouseOver = false; //判斷滑鼠是否在日期上
 
@@ -293,30 +290,58 @@
     async function chartJsWeek() {
       const res = await fetch("./api/chart_api.php", { method: "get" });
       const response = await res.json();
-      console.log(response[1][0]);
-      initCharts()
       const canvasElements = document.querySelectorAll("[id^='myChart']");
-      canvasElements.forEach(async (canvas, index) => {
-        const ctx = canvas.getContext("2d");
-        // 假設這些數據是從API或者數據庫獲取的
-        const labels = [
-          "項目1",
-          "項目2",
-          "項目3",
-          "項目4",
-          "項目5",
-          "d",
-          "d",
-        ];
-        const data = [120, 190, 300, 50, 20];
 
-        chart = new Chart(ctx, {
+      initCharts()
+
+      canvasElements.forEach(async (canvas, index) => {
+
+        function getPastDate(daysBeforeToday) {
+          let date = new Date();
+
+          date.setDate(date.getDate() - daysBeforeToday);
+          let opts = {
+            month: "2-digit",
+            day: "2-digit",
+          };
+
+          return Intl.DateTimeFormat("zh-TW", opts).format(date);
+        }
+        const ctx = canvas.getContext("2d");
+        const labels = [
+          getPastDate(6),
+          getPastDate(5),
+          getPastDate(4),
+          getPastDate(3),
+          getPastDate(2),
+          getPastDate(1),
+          getPastDate(0),
+        ];
+
+        const currencyId = Object.keys(response)[index];
+        const currencyData = response[currencyId];
+
+        let data = [];
+        if (currencyData && currencyData.length > 0) {
+          data = currencyData.slice(-7).map(item => parseFloat(item.exchange_rate));
+        }
+
+        // 取得該國家的最後一筆匯率數值
+        const lastExchangeRate = data.length > 0 ? data[data.length - 1] : 1;
+
+        const minVal = lastExchangeRate * 0.993;
+        const maxVal = lastExchangeRate * 1.008;
+
+        const range = maxVal - minVal;
+        const stepSize = range / 4;  // 因為我們希望有5個刻度，所以用4來除，確保有5個間隔
+
+        const config = {
           type: "line",
           data: {
             labels: labels,
             datasets: [
               {
-                label: "週數據",
+                label: "Last Week Statistic",
                 data: data,
                 backgroundColor: "rgba(220, 220, 220, 0.5)",
                 borderWidth: 3,
@@ -327,15 +352,26 @@
             ],
           },
           options: {
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
             responsive: true,
             scales: {
               y: {
                 beginAtZero: true,
+                min: minVal,
+                max: maxVal,
+                ticks: {
+                  stepSize: stepSize
+                }
               },
             },
           },
-        });
+        };
 
+        chart = new Chart(ctx, config);
         charts = [...charts, chart]
       });
     }
@@ -352,27 +388,57 @@
     }
 
     async function chartJsMonth() {
-      const res = await fetch("./api/chart_api.php", { method: "get" });
+      const res = await fetch("https://wda.mackliu.com/s1120210/chart_api.php", { method: "get" });
       const response = await res.json();
-      console.log(response);
-
       const canvasElements = document.querySelectorAll("[id^='myChart']");
+
       initCharts()
 
       canvasElements.forEach(async (canvas, index) => {
+
+        function getPastDate(daysBeforeToday) {
+          let date = new Date();
+
+          date.setDate(date.getDate() - daysBeforeToday);
+          let opts = {
+            month: "2-digit",
+            day: "2-digit",
+          };
+
+          return Intl.DateTimeFormat("zh-TW", opts).format(date);
+        }
+
         const ctx = canvas.getContext("2d");
-        // if(ctx) ctx.destory();
-        // 假設這些數據是從API或者數據庫獲取的
         const labels = [
-          // response[1][3].create_time,
-          "項目2",
-          "項目3",
-          "項目4",
-          "項目5",
-          "d",
-          "d",
+          getPastDate(30),
+          getPastDate(25),
+          getPastDate(20),
+          getPastDate(15),
+          getPastDate(10),
+          getPastDate(5),
+          getPastDate(0),
         ];
-        const data = [120, 190, 300, 50, 20];
+
+        const currencyId = Object.keys(response)[index];
+        const currencyData = response[currencyId];
+
+        let data = [];
+        if (currencyData && currencyData.length > 0) {
+          // 從最後一筆資料開始，每5筆取一筆，直到取得7筆資料
+          for (let i = currencyData.length - 1, count = 0; i >= 0 && count < 7; i -= 5, count++) {
+            const rate = parseFloat(currencyData[i].exchange_rate);
+            data.unshift(rate);  // 使用unshift將數據加入到數組的前面，以保持時間順序
+          }
+        }
+
+        // 取得該國家的最後一筆匯率數值
+        const lastExchangeRate = data.length > 0 ? data[data.length - 1] : 1;
+
+        const minVal = lastExchangeRate * 0.98;
+        const maxVal = lastExchangeRate * 1.06;
+
+        const range = maxVal - minVal;
+        const stepSize = range / 4;  // 因為我們希望有5個刻度，所以用4來除，確保有5個間隔
 
         const config = {
           type: "line",
@@ -391,10 +457,20 @@
             ],
           },
           options: {
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
             responsive: true,
             scales: {
               y: {
                 beginAtZero: true,
+                min: minVal,
+                max: maxVal,
+                ticks: {
+                  stepSize: stepSize
+                }
               },
             },
           },

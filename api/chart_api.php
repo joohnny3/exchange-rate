@@ -1,8 +1,8 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-$dsn = "mysql:host=localhost;charset=utf8;dbname=exchange_rate";
+$dsn = "mysql:host=localhost;charset=utf8;dbname=''";
 $pdo = new PDO($dsn, 'root', '');
-$sql = "SELECT * FROM `exchange_rates`";
+$sql = "SELECT * FROM `exchange_rates` ORDER BY `id` DESC";
 $sql_data = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 $chart_data = [];
