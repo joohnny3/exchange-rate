@@ -14,6 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
     crossorigin="anonymous"></script>
+
   <style>
     :root {
       --theme-color: rgba(255, 255, 255, 0.9);
@@ -100,13 +101,16 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 d-flex">
             <div>
+
               <li class="nav-item">
-                <a class="nav-link active fs-4" aria-current="page" href="#" id="lastWeekStatisticCahrt">
+                <a class="nav-link active fs-4" aria-current="page" href="#" id="lastWeekStatisticCahrt"
+                  onclick="lastWeekStatistic()">
                   Last week statistic chart
                 </a>
               </li>
+
               <li class="nav-item">
-                <a class="nav-link active fs-4" href="#" id="lastMonthStatisticCahrt">
+                <a class="nav-link active fs-4" href="#" id="lastMonthStatisticCahrt" onclick="lastMonthStatistic()">
                   Last month statistic chart
                 </a>
               </li>
@@ -162,13 +166,18 @@
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     let swap = document.querySelector("#swap");
     let time = document.querySelector("#currentTime");
     let rain = document.querySelector("#weather");
-    let lastWeekStatisticCahrt = document.querySelector("#lastWeekStatisticCahrt");
-    let lastMonthStatisticCahrt = document.querySelector("#lastMonthStatisticCahrt");
-    
+    let lastWeekStatisticCahrt = document.querySelector(
+      "#lastWeekStatisticCahrt"
+    );
+    let lastMonthStatisticCahrt = document.querySelector(
+      "#lastMonthStatisticCahrt"
+    );
+
     console.log(lastWeekStatisticCahrt);
     console.log(lastMonthStatisticCahrt);
 
@@ -271,20 +280,151 @@
     (async function weather() {
       const res = await fetch(
         "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-649E0662-2D23-4C42-94FE-FD550FDCD25D&format=JSON&locationName=&elementName=",
-        { method: "get", }
+        { method: "get" }
       );
       const response = await res.json();
       rain.innerHTML =
         response.records.locations[0].location[9].weatherElement[6].time[0].elementValue[0].value;
     })();
 
-    (async function chartJs() {
-      const res = await fetch(
-        "./api/chart_api.php", { method: "get" }
-      );
+
+    let charts = [];
+
+    async function chartJsWeek() {
+      const res = await fetch("./api/chart_api.php", { method: "get" });
+      const response = await res.json();
+      console.log(response[1][0]);
+      initCharts()
+      const canvasElements = document.querySelectorAll("[id^='myChart']");
+      canvasElements.forEach(async (canvas, index) => {
+        const ctx = canvas.getContext("2d");
+        // 假設這些數據是從API或者數據庫獲取的
+        const labels = [
+          "項目1",
+          "項目2",
+          "項目3",
+          "項目4",
+          "項目5",
+          "d",
+          "d",
+        ];
+        const data = [120, 190, 300, 50, 20];
+
+        chart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "週數據",
+                data: data,
+                backgroundColor: "rgba(220, 220, 220, 0.5)",
+                borderWidth: 3,
+                fill: false,
+                tension: 0.1,
+                borderColor: "rgb(75, 192, 192)",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        charts = [...charts, chart]
+      });
+    }
+
+    function lastWeekStatistic() {
+      const imgElements = document.querySelectorAll(".imgCard");
+      imgElements.forEach((img, index) => {
+        const parent = img.parentElement;
+        const canvasDiv = document.createElement("div");
+        canvasDiv.innerHTML = `<canvas id="myChart${index}"></canvas>`;
+        parent.replaceChild(canvasDiv, img);
+      });
+      chartJsWeek();
+    }
+
+    async function chartJsMonth() {
+      const res = await fetch("./api/chart_api.php", { method: "get" });
       const response = await res.json();
       console.log(response);
-    })();
+
+      const canvasElements = document.querySelectorAll("[id^='myChart']");
+      initCharts()
+
+      canvasElements.forEach(async (canvas, index) => {
+        const ctx = canvas.getContext("2d");
+        // if(ctx) ctx.destory();
+        // 假設這些數據是從API或者數據庫獲取的
+        const labels = [
+          // response[1][3].create_time,
+          "項目2",
+          "項目3",
+          "項目4",
+          "項目5",
+          "d",
+          "d",
+        ];
+        const data = [120, 190, 300, 50, 20];
+
+        const config = {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Last Month Statistic",
+                data: data,
+                backgroundColor: "rgba(220, 220, 220, 0.5)",
+                borderWidth: 3,
+                fill: false,
+                tension: 0.1,
+                borderColor: "rgb(75, 192, 192)",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        };
+
+        chart = new Chart(ctx, config);
+        charts = [...charts, chart]
+      });
+    }
+
+    function lastMonthStatistic() {
+      const imgElements = document.querySelectorAll(".imgCard");
+      imgElements.forEach((img, index) => {
+        const parent = img.parentElement;
+        const canvasDiv = document.createElement("div");
+        canvasDiv.innerHTML = `<canvas id="myChart${index}"></canvas>`;
+        parent.replaceChild(canvasDiv, img);
+      });
+      chartJsMonth();
+    }
+
+    function initCharts() {
+      if (charts) {
+        for (const chart of charts) {
+          chart.clear()
+          chart.destroy()
+        }
+        charts = []
+      }
+    }
   </script>
 </body>
 
