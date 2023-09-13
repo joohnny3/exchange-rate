@@ -1,26 +1,31 @@
-# PHP 資料庫網頁設計 - 網頁動態技術 - 課程作業
+<p align="center"><a href="https://www.javascripttutorial.net" target="_blank"><img src="https://www.javascripttutorial.net/wp-content/uploads/2021/04/JavaScript-Tutorial.svg" width="240" alt="JavaScript Logo"></a></p>
 
-## 作業內容
-請學員使⽤ Bootstrap 及前端相關所學設計個人作品集網站前端頁面（一頁式亦可），並具備 RWD 響應式網頁效果。完成後需上傳到學員 Github 帳號並開啟 Github Page 功能並且繳交連結網址。
+## [Exchange Rate](https://joohnny3.github.io/exchange-rate)
 
-##	繳交期限
-課程結束前(2023-08-18前)
+提供多種貨幣的匯率信息與過去的匯率數據
 
-##	評分說明 （合計 100 分）
-|項目|內容|分數|
-|--|--|--|
-|1.|**能使用至少一種CSS框架來製作網頁版面設計**|**10 分**|
-|2.|**能應用至少兩種CSS框架提供的功能來增加網頁的動態效果**|**10 分**|
-|3.|**能製作符合響應式網站的版型至少兩種(一般PC及一種不同螢幕寬度的行動裝置)**|**10 分**|
-|4.|**能製作一組包含至少四個項目的選單或導覽列**|**10 分**|
-|5.|**能選擇至少一項開放資料API來進行網頁主題應用**|**10 分**|
-|6.|**能使用Ajax或cURL技術來串接API**|**10 分**|
-|7.|**能選擇一種適合的方式將資料呈現在網頁上(表格、方塊、條列、數據化圖形..等等)**|**10 分**|
-|8.|**能應用前端函式庫或框架提供至少一項互動功能(點選、拖拉、選單…等等)**|**10 分**|
-|9.|**能將網頁製作成果上傳至指定的網頁主機，並可公開展示**|**10 分**|
-|10.|**能將成果的程式碼檔案上傳至github網站保存**|**5 分**|
-|11.|**能使用github網站提供的github page功能來公開展示前端網頁成品**|**5 分**|
+## Installation
 
-## 繳交方式
-完整代碼上傳 Github ClassRoom 至指定 repository，並於說明欄位提供 個人 GitPage 之預覽連結:<br>
-[個人作品集前台頁面]()
+- 即時匯率顯示：自動從各大外匯數據提供者取得並展示各國的即時匯率。
+- 匯率轉換器：使用者可以切換當前國家匯率和顯示轉換後的金額。
+- 歷史匯率數據：展示過去時間內的匯率走勢(週/月份)，以數據圖展示。
+- 響應式設計：確保網頁在各種裝置上，如手機、平板和桌面電腦上都能正常顯示。
+- 天氣預報：顯示台北即時天氣預報。
+  
+## Use
+
+- 右上角有側邊功能欄開關：開啟後可點擊需要的功能。
+- 上方導覽列有QRcode:掃描可填寫意見回饋，管理者會及時收到通知。
+
+## Skill
+
+<p align="center">
+<img align="left" src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=for-the-badge"/>
+<img align="left" src="https://img.shields.io/badge/-Php-777BB4?logo=php&logoColor=white&logoWidith=200&style=for-the-badge"/>
+<img align="left" src="https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white&style=for-the-badge"/>
+<img align="left" src="https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white&style=for-the-badge"/>
+<img align="left" src="https://img.shields.io/badge/-CSS3-3776AB?logo=css3&logoColor=white&style=for-the-badge"/>
+<img align="left" src="https://img.shields.io/badge/-BootStrap-7952B3?logo=bootstrap&logoColor=white&style=for-the-badge"/>
+<img align="left" src="https://img.shields.io/badge/-MySQL-3776AB?logo=mysql&logoColor=white&style=for-the-badge"/>
+</p>
+
